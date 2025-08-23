@@ -1,124 +1,73 @@
-N = 10
+try:
+    a = float(input("Введіть перше число: "))
+    b = float(input("Введіть друге число: "))
+    result = a / b
+    print("Результат ділення:", result)
+except ValueError:
+    print("Помилка: введене значення не є числом!")
+except ZeroDivisionError:
+    print("Помилка: ділення на нуль!")
+finally:
+    print("Операція завершена.")
 
-def figure_a():
-    for i in range(N):
-        for j in range(N):
-            if j <= N - i - 1:
-                print("*", end=" ")
-            else:
-                print(" ", end=" ")
-        print()
 
-def figure_b():
-    for i in range(N):
-        for j in range(N):
-            if j >= i:
-                print("*", end=" ")
-            else:
-                print(" ", end=" ")
-        print()
 
-def figure_v():
-    for i in range(N):
-        for j in range(N):
-            if i >= N//2 and abs(j - N//2) <= i - N//2:
-                print("*", end=" ")
-            else:
-                print(" ", end=" ")
-        print()
+numbers = [10, 20, 30, 40, 50]
 
-def figure_g():
-    for i in range(N):
-        for j in range(N):
-            if i <= N//2 and abs(j - N//2) <= N//2 - i:
-                print("*", end=" ")
-            else:
-                print(" ", end=" ")
-        print()
+try:
+    index = int(input("Введіть індекс елемента: "))
+    print("Елемент за індексом", index, ":", numbers[index])
+except ValueError:
+    print("Помилка: індекс повинен бути числом!")
+except IndexError:
+    print("Помилка: індекс виходить за межі списку!")
+finally:
+    print("Операція завершена.")
 
-def figure_d():
-    for i in range(N):
-        for j in range(N):
-            if j >= i and j <= N - i - 1 or j <= i and j >= N - i - 1:
-                print("*", end=" ")
-            else:
-                print(" ", end=" ")
-        print()
 
-def figure_e():
-    for i in range(N):
-        for j in range(N):
-            if j <= i and j <= N - i - 1 or j >= i and j >= N - i - 1:
-                print("*", end=" ")
-            else:
-                print(" ", end=" ")
-        print()
 
-def figure_zh():
-    for i in range(N):
-        for j in range(N):
-            if j <= i:
-                print("*", end=" ")
-            else:
-                print(" ", end=" ")
-        print()
 
-def figure_z():
-    for i in range(N):
-        for j in range(N):
-            if j >= N - i - 1:
-                print("*", end=" ")
-            else:
-                print(" ", end=" ")
-        print()
 
-def figure_i():
-    for i in range(N):
-        for j in range(N):
-            if i <= j:
-                print("*", end=" ")
-            else:
-                print(" ", end=" ")
-        print()
+try:
+    sales = input("Введіть дані про продажі через пробіл: ")
+    sales_list = list(map(float, sales.split()))
+    total = sum(sales_list)
+    print("Загальна сума продажів:", total)
+except ValueError:
+    print("Помилка: введено некоректні дані!")
+finally:
+    print("Обробка завершена.")
 
-def figure_k():
-    for i in range(N):
-        for j in range(N):
-            if i >= j:
-                print("*", end=" ")
-            else:
-                print(" ", end=" ")
-        print()
 
-def menu():
-    while True:
-        print("\nФігури: а, б, в, г, д, е, ж, з, и, к")
-        print("0 - вихід")
-        ch = input("Виберіть фігуру: ")
 
-        if ch == "0":
-            break
-        elif ch == "а":
-            figure_a()
-        elif ch == "б":
-            figure_b()
-        elif ch == "в":
-            figure_v()
-        elif ch == "г":
-            figure_g()
-        elif ch == "д":
-            figure_d()
-        elif ch == "е":
-            figure_e()
-        elif ch == "ж":
-            figure_zh()
-        elif ch == "з":
-            figure_z()
-        elif ch == "и":
-            figure_i()
-        elif ch == "к":
-            figure_k()
-        else:
-            print("Немає такої фігури!")
+import math
 
-menu()
+try:
+    num = float(input("Введіть число: "))
+    if num < 0:
+        raise Exception("Не можна обчислити квадратний корінь від'ємного числа")
+    result = math.sqrt(num)
+    print("Квадратний корінь:", result)
+except ValueError:
+    print("Помилка: введене значення не є числом!")
+except Exception as e:
+    print("Помилка:", e)
+finally:
+    print("Обчислення завершено.")
+
+
+
+
+
+try:
+    data = input("Введіть дані (назва, ціна, кількість): ")
+    name, price, quantity = data.split(",")
+    name = name.strip()
+    price = float(price.strip())
+    quantity = int(quantity.strip())
+    print(f"Товар: {name}, Ціна: {price}, Кількість: {quantity}")
+except ValueError:
+    print("Помилка: некоректні дані! Переконайтеся, що ціна та кількість є числами.")
+finally:
+    print("Парсинг завершено.")
+
