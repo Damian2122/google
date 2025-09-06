@@ -1,29 +1,92 @@
-
-lines = []
-for i in range(3):
-    line = input(f"Введіть рядок {i + 1}: ")
-    lines.append(line)
-
-
-with open("data.txt", "w", encoding="utf-8") as file:
-    for line in lines:
-        file.write(line + "\n")
-
-print("Рядки успішно записано у файл data.txt.")
-
-
 import os
 
-
-if os.path.exists("data.txt"):
-    print("Файл 'data.txt' існує. Виводжу кожен другий рядок:\n")
-
-    with open("data.txt", "r", encoding="utf-8") as file:
-        lines = file.readlines()
+FILENAME = "library.txt"
 
 
-    for i in range(1, len(lines), 2):
-        print(lines[i].strip())
+def add_book():
+    title = input("Введіть назву книги: ").strip()
+    author = input("Введіть автора книги: ").strip()
+    with open(FILENAME, "a", encoding="utf-8") as file:
+        file.write(f"{title};{author}\n")
+    print("✅ Книгу додано!")
 
-else:
-    print("Файл 'data.txt' не знайдено.")
+
+def view_books():
+    if not os.path.exists(FILENAME):
+        print("Бібліотека порожня.")
+        return
+    with open(FILENAME, "r", encoding="utf-8") as file:
+        books = file.readlines()
+    if not books:
+        print("Бібліотека порожня.")
+    else:
+        print("\n📚 Усі книги:")
+        for i, line in enumerate(books, start=1):
+            title, author = line.strip().split(";")
+            print(f"{i}. {title} — {author}")
+
+
+def search_by_author():
+    author_search = input("Введіть ім'я автора для пошуку: ").strip().lower()
+    found = False
+    if os.path.exists(FILENAME):
+        with open(FILENAME, "r", encoding="utf-8") as file:
+            for line in file:
+                title, author = line.strip().split(";")
+                if author_search in author.lower():
+                    print(f"🔎 Знайдено: {title} — {author}")
+                    found = True
+    if not found:
+        print("❌ Книг цього автора не знайдено.")
+
+
+def delete_book():
+    title_delete = input("Введіть назву книги для видалення: ").strip().lower()
+    if not os.path.exists(FILENAME):
+        print("Файл бібліотеки порожній.")
+        return
+    with open(FILENAME, "r", encoding="utf-8") as file:
+        books = file.readlines()
+    new_books = []
+    deleted = False
+    for line in books:
+        title, author = line.strip().split(";")
+        if title.lower() == title_delete:
+            deleted = True
+        else:
+            new_books.append(line)
+    with open(FILENAME, "w", encoding="utf-8") as file:
+        file.writelines(new_books)
+    if deleted:
+        print("🗑 Книгу видалено!")
+    else:
+        print("❌ Книгу не знайдено.")
+
+
+def main():
+    while True:
+        print("\n===== Бібліотека =====")
+        print("1. Додати нову книгу")
+        print("2. Переглянути всі книги")
+        print("3. Пошук книги за автором")
+        print("4. Видалити книгу")
+        print("5. Вихід")
+        choice = input("Оберіть дію (1-5): ")
+
+        if choice == "1":
+            add_book()
+        elif choice == "2":
+            view_books()
+        elif choice == "3":
+            search_by_author()
+        elif choice == "4":
+            delete_book()
+        elif choice == "5":
+            print("👋 Вихід з програми.")
+            break
+        else:
+            print("❌ Неправильний вибір!")
+
+
+if __name__ == "__main__":
+    main()
